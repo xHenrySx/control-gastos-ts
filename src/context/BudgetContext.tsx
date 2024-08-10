@@ -6,12 +6,12 @@ import {
   BudgetActions,
 } from "../reducers/budget-reducer";
 
-interface BudgetContextProps {
+export interface BudgetContextProps {
   state: BudgetState;
   dispatch: Dispatch<BudgetActions>;
 }
 
-interface BudgetProviderProps {
+export interface BudgetProviderProps {
   children: ReactNode;
 }
 

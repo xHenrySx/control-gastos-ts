@@ -33,13 +33,18 @@ interface EditExpense {
   };
 }
 
+interface ResetApp {
+  type: "reset-app";
+}
+
 export type BudgetActions =
   | AddBudget
   | ShowCLoseModal
   | AddExpense
   | DeleteExpense
   | GetExpenseById
-  | EditExpense;
+  | EditExpense
+  | ResetApp;
 
 export interface BudgetState {
   budget: number;
@@ -54,11 +59,11 @@ const initialBudget = (): number => {
   return +localStorageBudget;
 };
 
-const localStorageExpenses = () : Expense[] => {
-  const localStorageExpenses = localStorage.getItem('expenses');
+const localStorageExpenses = (): Expense[] => {
+  const localStorageExpenses = localStorage.getItem("expenses");
   if (!localStorageExpenses) return [];
   return JSON.parse(localStorageExpenses);
-}
+};
 
 export const initialState: BudgetState = {
   budget: initialBudget(),
@@ -140,6 +145,14 @@ export const budgetReducer = (
       expenses,
       modal: false,
       editingId: "",
+    };
+  }
+
+  if (action.type === "reset-app") {
+    return {
+      ...state,
+      expenses: [],
+      budget: 0,
     };
   }
 

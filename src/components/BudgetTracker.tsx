@@ -5,10 +5,10 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useBudget } from "../hooks/useBudget";
 import AmountDisplay from "./AmountDisplay";
 
-import 'react-circular-progressbar/dist/styles.css';
+import "react-circular-progressbar/dist/styles.css";
 
 const BudgetTracker = () => {
-  const { state } = useBudget();
+  const { state, dispatch } = useBudget();
 
   const spent = useMemo(
     () =>
@@ -21,7 +21,7 @@ const BudgetTracker = () => {
   const available = useMemo(() => state.budget - spent, [spent, state.budget]);
 
   const percentage = useMemo(
-    () => (+((spent / state.budget) * 100).toFixed(2)),
+    () => +((spent / state.budget) * 100).toFixed(2),
     [spent, state.budget]
   );
 
@@ -31,10 +31,10 @@ const BudgetTracker = () => {
         <CircularProgressbar
           value={percentage}
           styles={buildStyles({
-            pathColor: available > 0 ? '#3b82f6' : '#DC2626',
+            pathColor: available > 0 ? "#3b82f6" : "#DC2626",
             trailColor: "#F5F5F5",
             textSize: "7",
-            textColor: available > 0 ? '#3b82f6' : '#DC2626'
+            textColor: available > 0 ? "#3b82f6" : "#DC2626",
           })}
           text={`${percentage}% Gastado`}
         />
@@ -43,6 +43,7 @@ const BudgetTracker = () => {
         <button
           type="button"
           className="bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg"
+          onClick={() => dispatch({ type: "reset-app" })}
         >
           Resetear App
         </button>

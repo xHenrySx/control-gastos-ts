@@ -1,13 +1,13 @@
 import { useState, ChangeEvent, useMemo, FormEvent } from "react";
 import { useBudget } from "../hooks/useBudget";
 const BudgetForm = () => {
-  const [budget, setBudget] = useState(NaN);
+  const [budget, setBudget] = useState<number>(0);
   const { dispatch } = useBudget();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // if (isNaN(e.target.valueAsNumber)) {
-    //   return;
-    // }
+    if (isNaN(e.target.valueAsNumber)) {
+      return;
+    }
     setBudget(e.target.valueAsNumber);
   };
 
